@@ -3,14 +3,35 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>JC Student Card — QR Image</title>
+  <title>JC Student Card — Image Header & Footer</title>
   <style>
     :root{--bg:#f6f7fb;--card:#fff;--ink:#111317;--muted:#6b7280;--line:#e5e7eb}
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;display:flex;justify-content:center;align-items:flex-start;padding:16px}
-    .page{width:100%;max-width:360px;background:var(--card);border:1px solid var(--line);border-radius:0px;box-shadow:0 6px 20px rgba(0,0,0,.1);overflow:hidden}
-    header{background:#2f3338;color:#fff;text-align:left;font-weight:700;font-size:1.25rem;padding:.75rem}
+    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;}
+
+    .app-header, .app-footer {
+      width:100%;
+      max-width:480px;
+    }
+
+    .app-header img, .app-footer img {
+      width:100%;
+      display:block;
+    }
+
+    .page{
+      width:100%;
+      max-width:360px;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:0;
+      box-shadow:0 6px 20px rgba(0,0,0,.1);
+      overflow:hidden;
+      margin:10px 0;
+    }
+
+    header{background:#2f3338;color:#fff;text-align:left;font-weight:700;font-size:1.25rem;padding:.75rem 1rem;}
     .content{padding:12px;display:flex;flex-direction:column;gap:10px;align-items:center}
 
     .profile{position:relative;width:120px;height:140px;border:1px solid var(--line);overflow:hidden;background:#111;display:grid;place-items:center;cursor:pointer;border-radius:0}
@@ -18,25 +39,25 @@
 
     .timebox{display:flex;align-items:center;gap:8px;width:100%;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 10px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
     .clock-icon{width:28px;height:28px}
-    .now {
-    font-weight:600;
-    font-size:0.8rem;     
-    white-space: nowrap;  
-    overflow: hidden;   
-    text-overflow: ellipsis; 
-    }
-    dl{width:100%;display:grid;grid-template-columns:140px 1fr;row-gap:6px}
+    .now{font-weight:600;font-size:0.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+    dl{width:100%;display:grid;grid-template-columns:140px 1fr;column-gap:20px;row-gap:6px}
     dt{color:var(--muted);font-weight:600}
     dd{margin:0}
     #nameDisplay[contenteditable="true"]{outline:none;border:none;padding:0;font-weight:600}
 
     .qr-wrap{display:flex;flex-direction:column;align-items:center;gap:6px}
-    .qr{width:180px;height:180px;background:#fff; solid #111;display:grid;place-items:center;padding:4px}
+    .qr{width:180px;height:180px;background:#fff;border:none;display:grid;place-items:center;padding:4px}
     .qr img{width:100%;height:100%;object-fit:contain;image-rendering:pixelated}
     .hint{color:var(--muted);font-size:.8rem}
   </style>
 </head>
 <body>
+  <!-- Header Image -->
+  <div class="app-header">
+    <img src="header.jpg" alt="App Header" />
+  </div>
+
   <div class="page">
     <header>JC Student Card</header>
     <div class="content">
@@ -52,7 +73,7 @@
 
       <dl>
         <dt>Name</dt>
-        <dd id="nameDisplay" contenteditable="true" spellcheck="false">Student Name</dd>
+        <dd id="nameDisplay" contenteditable="true" spellcheck="false">Kyle Stivala</dd>
         <dt>To verify status</dt>
         <dd>Scan QR code</dd>
         <dt>QR valid until</dt>
@@ -66,6 +87,11 @@
         <div class="hint">Tap to Zoom</div>
       </div>
     </div>
+  </div>
+
+  <!-- Footer Image -->
+  <div class="app-footer">
+    <img src="footer.jpeg" alt="App Footer" />
   </div>
 
   <script>
@@ -93,7 +119,7 @@
         <rect x="35" y="155" width="130" height="70" rx="12" fill="#d1d5db"/>
       </svg>`);
 
-    const DEFAULT_NAME='Student Name';
+    const DEFAULT_NAME='Kyle Stivala';
 
     function save(){
       localStorage.setItem('jc_name', nameDisplay.textContent);
